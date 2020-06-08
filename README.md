@@ -14,12 +14,11 @@
 
 Создание переменных среды и установка их значений, а также связывание команд с их "новыми" названиями.
 ```sh
-$ export GITHUB_USERNAME=kbrotskiy
+$ export GITHUB_USERNAME=callmemiya
 ```
 
 Начало работы в каталоге `workspace`
 ```sh
-# Переход в рабочую директорию
 $ cd ${GITHUB_USERNAME}/workspace
 $ pushd . #Сохранение текущего каталога
 $ source scripts/activate
@@ -40,7 +39,7 @@ $ cat > Dockerfile <<EOF
 FROM ubuntu:18.04
 EOF
 ```
-Выполняем обновление списка пакетов **APT** в базовом образе - утилиты для управления пакетами. Затем с его помощью устанавливаем компиляторы и `CMake`.
+
 ```sh
 $ cat >> Dockerfile <<EOF
 ```
@@ -71,7 +70,7 @@ EOF
 Инструкция `VOLUME` позволяет указать место, которое контейнер будет использовать для постоянного хранения файлов и для работы с такими файлами.
 ```sh
 $ cat >> Dockerfile <<EOF
-# Указываем в какой директории будут храниться файлы, которые останутся после работы с контейнером
+
 VOLUME /home/logs
 EOF
 
@@ -83,11 +82,10 @@ WORKDIR _install/bin
 EOF
 
 ```
-Инструкция `ENTRYPOINT` позволяет задавать команду с аргументами, которая должна выполняться при запуске контейнера. 
+```sh
 $ cat >> Dockerfile <<EOF
 ENTRYPOINT ./demo
 EOF
-
 ```
 Сборка образа с тегом `logger` и путем к `Dockerfile`
 ```sh
@@ -103,7 +101,6 @@ $ mkdir logs
 $ docker run -it -v "$(pwd)/logs/:/home/logs/" logger /bin/bash
 
 ```
-Вывод подробной информации о контейнере
 ```sh
 $ docker inspect logger
 ```
@@ -117,25 +114,23 @@ $ cat logs/log.txt
 $ gsed -i 's/lab07/lab08/g' README.md
 ```
 
-Изменение `.travis.yml` для сборки в контейнере.
+Изменение `.travis.yml` 
 ```sh
 $ vim .travis.yml
-
+/lang<CR>o
+services:
+- docker<ESC>
+jVGdo
+script:
+- docker build -t logger .<ESC>
+:wq
 ```
-Добавление **Docker** в репозиторий.
 ```sh
 $ git add Dockerfile
 $ git add .travis.yml
 $ git commit -m"adding Dockerfile"
 $ git push origin master
 
-```
-Активация непрерывной интеграции с **Travis CI**.
-```sh
-$ travis login --auto --com
-Successfully logged in as kbrotskiy!
-$ travis enable --com
-kbrotskiy/lab08: enabled :)
 ```
 
 ## Report
