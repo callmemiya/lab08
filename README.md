@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/callmemiya/lab08.svg?branch=master)](https://travis-ci.com/callmemiya/lab08)
 ## Laboratory work VIII
 
 Данная лабораторная работа посвящена изучению систем автоматизации развёртывания и управления приложениями на примере **Docker**
